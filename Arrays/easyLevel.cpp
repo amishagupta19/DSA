@@ -154,30 +154,68 @@ vector<int> Union(vector<int> &a1, vector<int> &a2, int n1, int n2){
   }
   return unionArr;
 }
+int findMissingNumber(vector<int> &arr, int n){
+  int sum = (n*(n+1)) / 2;
+  int sumArr = 0;
+  int missingNum;
+  for(int i = 0; i < n - 1; i++){
+    sumArr += arr[i];
+  }
+  missingNum = sum - sumArr;
+  return missingNum;
+}
+int findMissingNumUsingXorr(vector<int> &arr, int n){
+  int xor1 = 0;
+  int xor2 = 0;
+  int N = n - 1;
+  for(int i = 0; i < N; i++){
+    xor2 = xor2 ^ arr[i];
+    xor1 = xor1 ^ (i+1);
+  }
+  xor1 = xor1 ^ n;
+  int res = xor1 ^ xor2;
+  return res;
+}
+int findMaxConscOnes(vector<int> &arr, int n){
+  int cnt = 0, maxi = 0;
+  for(int i = 0; i < n; i++){
+    if(arr[i] == 1){
+      cnt++;
+      maxi = max(cnt, maxi);
+    } else {
+      cnt = 0;
+    }
+  }
+  return maxi;
+}
+
+
 
 
 int main(){
-  // int n;
-  // cin >> n;
-  // vector<int> arr(n);
-  // for(int i = 0; i < n; i++){
-  //   cin >> arr[i];
-  // }
+  int n;
+  cin >> n;
+  vector<int> arr(n);
+  for(int i = 0; i < n - 1; i++){
+    cin >> arr[i];
+  }
   // int res = moveZeroes(arr, n);
   // for(int i = 0; i < res; i++){
   //   cout << arr[i] << " ";
   // }
 
-  int n1, n2;
-  cin >> n1 >> n2;
-  vector<int> a1(n1), a2(n2);
-  for(int i = 0; i < n1; i++){
-    cin >> a1[i];
-  }
-  for(int i = 0; i < n2; i++){
-    cin >> a2[i];
-  }
-  vector<int> res = Union(a1, a2, n1, n2);
-  for (auto &val: res)
-    cout << val << " ";
+  // int n1, n2;
+  // cin >> n1 >> n2;
+  // vector<int> a1(n1), a2(n2);
+  // for(int i = 0; i < n1; i++){
+  //   cin >> a1[i];
+  // }
+  // for(int i = 0; i < n2; i++){
+  //   cin >> a2[i];
+  // }
+  // vector<int> res = Union(a1, a2, n1, n2);
+  // for (auto &val: res)
+  //   cout << val << " ";
+  int res = findMaxConscOnes(arr, n);
+  cout << res;
 }
